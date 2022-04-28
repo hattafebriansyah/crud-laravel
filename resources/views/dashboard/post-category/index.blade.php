@@ -3,13 +3,13 @@
 @section('content')
     <div class="row justify-content-center mt-4">
         @if(session()->has('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <div class="alert alert-success alert-dismissible fade show col-md-8" role="alert">
             {{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
         <div class="col-md-8">
-            <a href="/post-category/create" class="btn btn-info">Add Post Category</a>
+            <a href="/post-category/create" class="btn btn-success">Add Post Category</a>
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -21,8 +21,9 @@
                 </thead>
                 <tbody>
                 @foreach ($data as $postCategory)
+               
                 <tr>
-                    <th scope="row">1</th>
+                    <th scope="row">{{$loop -> iteration}}</th>
                     <td>{{ $postCategory['name'] }}</td>
                     <td>{{ $postCategory['description'] }}</td>
                     <td>

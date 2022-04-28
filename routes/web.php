@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostCategoryController;
+use App\Http\Controllers\PostController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,69 +27,6 @@ Route::get('/home', function () {
     ]);
 });
 
-
-Route::get('/post/', function () {
-
-    $post = 
-    [
-        [
-            "title" => "Judul Post Pertama",
-            "slug" => "judul-post-pertama",
-            "penulis" => "Penulis 1",
-            "body" => "sjdgfiusgdfiusgdiufgsdiufgsidf"
-        ],
-        [
-            "title" => "Judul Post kedua",
-            "slug" => "judul-post-kedua",
-            "penulis" => "Penulis 2",
-            "body" => "sdssdsdsjdgfiusgdfiusgdiuiufgsidf"
-        ]
-    
-    ];
-
-
-    return view('post',[
-        "title" => 'Halaman Post',
-        "active" => 'Post',
-        "posts" => $post
-    ]);
-});
-
-
-Route::get('/post/{slug}', function ($slug) {
-
-    $post = 
-    [
-        [
-            "title" => "Judul Post Pertama",
-            "slug" => "judul-post-pertama",
-            "penulis" => "Penulis 1",
-            "body" => "sjdgfiusgdfiusgdiufgsdiufgsidf"
-        ],
-        [
-            "title" => "Judul Post kedua",
-            "slug" => "judul-post-kedua",
-            "penulis" => "Penulis 2",
-            "body" => "sdssdsdsjdgfiusgdfiusgdiuiufgsidf"
-        ]
-    
-    ];
-
-    $getPost = [];
-
-    foreach($post as $data){
-        if ($data['slug'] === $slug){
-            $getPost = $data;
-        }
-    }
-
-    return view('single-post',[
-        "title" => 'Halaman Single Post',
-        "active" => 'Home',
-        "post" => $getPost
-    ]);
-});
-
 Route::get('/login', [LoginController::class, 'index']) -> name ('login') -> middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
 
@@ -99,3 +37,4 @@ Route::get('/register', [RegisterController::class, 'index'])->name('register')-
 Route::post('/register', [RegisterController::class, 'store']) ;
 
 Route::resource('post-category', PostCategoryController::class)->middleware('auth');
+Route::resource('post', PostController::class)->middleware('auth');
